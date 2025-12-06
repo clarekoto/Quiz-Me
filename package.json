@@ -1,0 +1,29 @@
+{
+  "name": "backend-practice",
+  "version": "1.0.0",
+  "description": "a pracitce backend",
+  "homepage": "https://github.com/clarekoto/backend-practice#readme",
+  "bugs": {
+    "url": "https://github.com/clarekoto/backend-practice/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clarekoto/backend-practice.git"
+  },
+  "license": "ISC",
+  "author": "Clare",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node backend/src/index.js",
+    "dev": "nodemon backend/src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
