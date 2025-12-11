@@ -7,6 +7,7 @@ const questionSchema = new Schema(
             required: true,
             maxLength: 350,
             minLength: 1,
+            trim: true,
         },
 
         answer: {
@@ -14,6 +15,7 @@ const questionSchema = new Schema(
             required: true,
             maxLength: 350,
             minLength: 1,
+            trim: true,
         }
     }
 );
@@ -24,6 +26,7 @@ const quizSchema = new Schema(
             type: String,
             required : true,
             maxLength: 100,
+            trim: true,
         },
         createdBy: {
             type: Schema.Types.ObjectId,
@@ -40,4 +43,3 @@ const quizSchema = new Schema(
 );
 
 export const Quiz = mongoose.model("Quiz", quizSchema);
-export const Question = mongoose.model("Question", questionSchema);
