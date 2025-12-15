@@ -51,14 +51,27 @@ const createQuiz = async(req, res) => {
 };
 
 
-// const getAllQuizes = async(req, res) => {
-//     try {
-//         const quiz = await 
-//     } catch (error) {
-        
-//     }
-// }
+const getAllQuizes = async(req, res) => {
+    try {
+        const quiz = await Quiz.find()
+        res.status(200).json(quiz)
+    } catch (error) {
+        console.error("Error in getAllQuizzes")
+        res.status(500).json({message : "Internal server error", error: error.message})
+    }
+}
+
+const updateQuiz = async(req, res) => {
+    
+}
+
+const deleteQuiz = async(req, res) => {
+
+}
 
 export {
     createQuiz,
+    getAllQuizes,
+    deleteQuiz,
+    updateQuiz,
 }
