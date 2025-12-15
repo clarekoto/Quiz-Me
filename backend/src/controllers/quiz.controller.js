@@ -91,9 +91,23 @@ const deleteQuiz = async(req, res) => {
     }
 }
 
+const getQuizById = async(req, res) => {
+    try {
+        const quiz = await Quiz.findById(req.params.id)
+        if(!quiz){
+            return res.status(404).json({message: "Quiz not found"})
+        }
+        res.json(quiz)
+    } catch (error) {
+        console.error("Error fetching quiz")
+        res.status(500).json({message : "Internal server error", error: error.message})
+    }
+}
+
 export {
     createQuiz,
     getAllQuizes,
     deleteQuiz,
     updateQuiz,
+    getQuizById,
 }
