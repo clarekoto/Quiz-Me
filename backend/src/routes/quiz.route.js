@@ -7,6 +7,6 @@ const router = Router();
 router.post("/", createQuiz);
 router.get("/", getAllQuizes);
 router.put("/:id", updateQuiz);
-router.put("/:id", deleteQuiz);
+router.delete("/:id", deleteQuiz);
 
 export default router;

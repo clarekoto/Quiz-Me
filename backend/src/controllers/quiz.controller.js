@@ -64,8 +64,13 @@ const getAllQuizes = async(req, res) => {
 const updateQuiz = async(req, res) => {
     try {
         const {title, questions} = req.body
-        await Quiz.findByIdAndUpdate(req.params.id,{title, questions})
-        res.status(200).json({message: "Note updated successfully"})
+        const updated = await Quiz.findByIdAndUpdate(req.params.id,{title, questions}, {
+            new: true,
+        });
+        if (!updated) {
+            return res.status(404).json({message: "Note not found"})
+        }
+        res.status(200).json(updated)
     } catch (error) {
         console.error("Error in updateQuiz")
         res.status(500).json({message : "Internal server error", error: error.message})
@@ -73,7 +78,17 @@ const updateQuiz = async(req, res) => {
 }
 
 const deleteQuiz = async(req, res) => {
-
+    try {
+        
+        const deleted = await Quiz.findByIdAndDelete(req.params.id);
+        if (!deleted) {
+            return res.status(404).json({message: "Note not found"})
+        }
+        res.status(200).json(deleted)
+    } catch (error) {
+        console.error("Error in deleteQuiz")
+        res.status(500).json({message : "Internal server error", error: error.message})
+    }
 }
 
 export {
