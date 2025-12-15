@@ -62,7 +62,14 @@ const getAllQuizes = async(req, res) => {
 }
 
 const updateQuiz = async(req, res) => {
-    
+    try {
+        const {title, questions} = req.body
+        await Quiz.findByIdAndUpdate(req.params.id,{title, questions})
+        res.status(200).json({message: "Note updated successfully"})
+    } catch (error) {
+        console.error("Error in updateQuiz")
+        res.status(500).json({message : "Internal server error", error: error.message})
+    }   
 }
 
 const deleteQuiz = async(req, res) => {
