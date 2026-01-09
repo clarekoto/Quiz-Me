@@ -53,7 +53,7 @@ const createQuiz = async(req, res) => {
 
 const getAllQuizes = async(req, res) => {
     try {
-        const quiz = await Quiz.find()
+        const quiz = await Quiz.find().sort({updatedAt: -1}); // Show newest first
         res.status(200).json(quiz)
     } catch (error) {
         console.error("Error in getAllQuizzes")
