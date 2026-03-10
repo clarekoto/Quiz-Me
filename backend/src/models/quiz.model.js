@@ -28,11 +28,11 @@ const quizSchema = new Schema(
             maxLength: 100,
             trim: true,
         },
-        createdBy: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            required: true,
-        },
+        // createdBy: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'User',
+        //     required: true,
+        // },
 
         questions: [questionSchema]
     },

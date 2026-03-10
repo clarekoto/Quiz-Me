@@ -6,7 +6,7 @@ const QuizCard = ({ quiz }) => {
   return (
     <Link 
       to={`/quiz/${quiz._id}`}
-      className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-t-4 border-solid border-[#000456]">
+      className="card bg-base-200 hover:bg-base-300 hover:shadow-xl transition-all duration-200 border-t-4 border-secondary">
       <div className="card-body">
         <h3 className="card-title text-base-content">{quiz.title}</h3>
         <p className="text-base-content/70 line-clamp-3">{quiz.content}</p>

@@ -6,6 +6,7 @@ const createQuiz = async(req, res) => {
         // const userId = req.user._id;
 
         if (!createdBy) {
+            console.log("Missing createdBy");
             return res.status(400).json({
                 message: "createdBy is required"
             });
@@ -13,6 +14,7 @@ const createQuiz = async(req, res) => {
 
         // validate quiz
         if (!title || !questions || questions.length === 0) {
+            console.log("Missing title or questions");
             return res.status(400).json({
                     message: "Title and at least one question are required"
                 });
@@ -21,6 +23,7 @@ const createQuiz = async(req, res) => {
         // validate questions
         const invalidQuestion = questions.find(q => !q.question || !q.answer);
         if (invalidQuestion) {
+            console.log("Invalid question found");
             return res.status(400).json({
                 message: "Each question requires both question and answer"
             });
@@ -82,7 +85,7 @@ const deleteQuiz = async(req, res) => {
         
         const deleted = await Quiz.findByIdAndDelete(req.params.id);
         if (!deleted) {
-            return res.status(404).json({message: "Note not found"})
+            return res.status(404).json({message: "Quiz not found"})
         }
         res.status(200).json(deleted)
     } catch (error) {
