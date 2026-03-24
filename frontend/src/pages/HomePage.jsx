@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import axios from "axios"
 import toast from "react-hot-toast";
 
-import QuizCard from '../components/QuizCard';
+import CoverCard from '../components/CoverCard';
 const HomePage = () => {
     const [quiz, setQuiz] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -33,7 +33,7 @@ const HomePage = () => {
         {quiz.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {quiz.map(quiz =>(
-                    <QuizCard key={quiz._id} quiz={quiz}/>
+                    <CoverCard key={quiz._id} quiz={quiz}/>
                 ))}
                 </div>
         )}

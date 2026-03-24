@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
 import axios from 'axios'
-import CoverCard from '../components/CoverCard'
+import QuizCard from '../components/QuizCard'
+import Navbar from '../components/Navbar'
 
 const QuizPage = () => {
   const {id} = useParams(); // useParamss() fetches the ID from the URL, this is identified using ":"
@@ -31,9 +32,10 @@ const QuizPage = () => {
 
   return (
     <div className="min-h-screen bg-base-200">
+      <Navbar />
       <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">{quiz.title}</h1>
-      <CoverCard question = {quiz.questions[currentIndex]} />
+      <QuizCard question = {quiz.questions[currentIndex]} />
       <div className="flex justify-center gap-4 mt-8">
         <button
           className="btn btn-outline"

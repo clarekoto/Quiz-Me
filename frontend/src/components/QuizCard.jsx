@@ -1,42 +1,27 @@
-import { Trash2Icon, PenSquareIcon } from 'lucide-react';
-import React from 'react';
-import { Link } from 'react-router';
+import React, {useState} from 'react';
 
-const QuizCard = ({ quiz }) => {
-  return (
-    <Link 
-      to={`/quiz/${quiz._id}`}
-      className="card bg-base-200 hover:bg-base-300 hover:shadow-xl transition-all duration-200 border-t-4 border-secondary">
-      <div className="card-body">
-        <h3 className="card-title text-base-content">{quiz.title}</h3>
-        <p className="text-base-content/70 line-clamp-3">{quiz.content}</p>
-        <div className="card-actions justify-between items-center mt-4"> 
-          <span className="text-sm text-base-content/60">
-            {new Date(quiz.createdAt).toLocaleDateString()}
-          </span>
-          <div className="flex items-center gap-1">
-            <button 
-              className="btn btn-ghost btn-xs"
-              onClick={(e) => {
-                e.preventDefault(); 
-              }}
-            >
-              <PenSquareIcon className="size-4"/>
-            </button>
-            <button 
-              className="btn btn-ghost btn-xs text-error"
-              onClick={(e) => {
-                e.preventDefault(); // Prevent navigation when clicking delete
-                // Add your delete logic here
-              }}
-            >
-              <Trash2Icon className="size-4" />
-            </button>
-          </div>
+const QuizCard = ({ question }) => {
+    const [flipped, setFlipped] = useState(false); 
+    let content;
+    if (flipped) {
+        content = question.answer
+    } else {
+        content = question.question
+    }
+    return (
+        <div className="card bg-base-300 w-full max-w-3xl min-w-xl h-[50vh] mx-auto border-2 border-secondary"
+        onClick={() => setFlipped(!flipped)}>
+            <div className="card-body items-center text-center min-h-48 justify-center">
+                <p className="text-sm uppercase tracking-wide text-base-content/50 mb-2">
+                {flipped ? "Answer" : "Question" }
+                </p>
+                <p className="text-s">
+                    {content}
+                </p>
+                <p className="text-sm text-base-content/40 mt-4">Click to flip</p>
+            </div>
         </div>
-      </div>
-    </Link>
-  );
-};
+    )
+}
 
-export default QuizCard;
+export default QuizCard

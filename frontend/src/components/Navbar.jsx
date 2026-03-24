@@ -5,8 +5,9 @@ const Navbar = () => {
     return <header className="bg-base-200 border-b border-base-content/10">
         <div className="mx-auto maxw-w-6xl p-4">
             <div className="flex items-center justify-between">
+                <Link to={"/"}>
                 <h1 className="text-3xl font-bold text-primary font-mono tracking-tighter">QuizBoard
-                </h1>
+                </h1></Link>
                 <div className="flex items-center gap-4"></div>
                 <Link to={"/create"} className="btn btn-primary">
                 <PlusIcon className="size-5"/>
