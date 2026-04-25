@@ -35,7 +35,7 @@ const QuizPage = () => {
       <Navbar />
       <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">{quiz.title}</h1>
-      <QuizCard question = {quiz.questions[currentIndex]} />
+      <QuizCard key={currentIndex} question={quiz.questions[currentIndex]} />
       <div className="flex justify-center gap-4 mt-8">
         <button
           className="btn btn-outline"

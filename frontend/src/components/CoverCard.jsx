@@ -10,7 +10,7 @@ const CoverCard = ({ quiz }) => {
       className="card bg-base-200 hover:bg-base-300 hover:shadow-xl transition-all duration-200 border-t-4 border-secondary">
       <div className="card-body">
         <h3 className="card-title text-base-content">{quiz.title}</h3>
-        <p className="text-base-content/70 line-clamp-3">{quiz.content}</p>
+        <p className="text-base-content/70 line-clamp-3">{quiz.description}</p>
         <div className="card-actions justify-between items-center mt-4"> 
           <span className="text-sm text-base-content/60">
             {new Date(quiz.createdAt).toLocaleDateString()}
