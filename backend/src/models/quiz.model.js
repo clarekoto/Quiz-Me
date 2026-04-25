@@ -28,6 +28,12 @@ const quizSchema = new Schema(
             maxLength: 100,
             trim: true,
         },
+        description: {
+            type: String,
+            maxLength: 500,
+            trim: true,
+            default: "",
+        },
         // createdBy: {
         //     type: Schema.Types.ObjectId,
         //     ref: 'User',

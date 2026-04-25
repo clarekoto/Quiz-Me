@@ -4,6 +4,7 @@ import axios from "axios"
 import toast from "react-hot-toast";
 
 import CoverCard from '../components/CoverCard';
+
 const HomePage = () => {
     const [quiz, setQuiz] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -35,7 +36,7 @@ const HomePage = () => {
                 {quiz.map(quiz =>(
                     <CoverCard key={quiz._id} quiz={quiz}/>
                 ))}
-                </div>
+            </div>
         )}
     </div>
 

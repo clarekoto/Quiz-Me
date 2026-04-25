@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeftIcon, PlusIcon, TrashIcon } from 'lucide-react';
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 
 const CreatePage = () => {
+    const { id } = useParams();
+    const isEditing = !!id;
+
     const[title, setTitle] = useState("");
     const[content,setContent] = useState("");
     const [questions, setQuestions] = useState([
@@ -11,6 +14,22 @@ const CreatePage = () => {
     const [loading, setLoading] = useState(false);
     const[error, setError] = useState("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isEditing) return;
+        const fetchQuiz = async () => {
+            try {
+                const res = await fetch(`http://localhost:4000/api/v1/quizzes/${id}`);
+                const data = await res.json();
+                setTitle(data.title);
+                setContent(data.description || "");
+                setQuestions(data.questions.map(q => ({ ...q, id: q._id })));
+            } catch {
+                setError("Failed to load quiz");
+            }
+        };
+        fetchQuiz();
+    }, [id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // prevent refresh
@@ -39,27 +58,29 @@ const CreatePage = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:4000/api/v1/quizzes", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                title,
-                questions: questions.map(q => ({
-                    question: q.question,
-                    answer: q.answer
-                })),
-                createdBy: "temp-user-id"
-            })
-        });
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || "Failed to create quiz");
-        }
-        console.log("Quiz created successfully:", data);
-        navigate("/");
+            const url = isEditing
+                ? `http://localhost:4000/api/v1/quizzes/${id}`
+                : "http://localhost:4000/api/v1/quizzes";
+
+            const response = await fetch(url, {
+                method: isEditing ? "PUT" : "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    title,
+                    description: content,
+                    questions: questions.map(q => ({
+                        question: q.question,
+                        answer: q.answer
+                    })),
+                    createdBy: "temp-user-id"
+                })
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || `Failed to ${isEditing ? "update" : "create"} quiz`);
+            }
+            navigate("/");
     } catch (error) {
         console.error("Error creating quiz:", error);
         setError(error.message);
@@ -96,7 +117,7 @@ const updateQuestion = (id, field, value) => {
             <ArrowLeftIcon className="size-5"/>
             Back Home
             </Link>
-            <h2 className="card-title text-3xl mb-2">Create New Quiz</h2>
+            <h2 className="card-title text-3xl mb-2">{isEditing ? "Edit Quiz" : "Create New Quiz"}</h2>
             <div className="card bg-base-100 mb-6">
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
@@ -190,7 +211,7 @@ const updateQuestion = (id, field, value) => {
                     className="btn text-xl btn-primary" 
                     disabled={loading}
                 >
-                    {loading ? "Creating..." : "Create Quiz"}
+                    {loading ? (isEditing ? "Saving..." : "Creating...") : (isEditing ? "Save Changes" : "Create Quiz")}
                 </button>
             </div>
         </div>

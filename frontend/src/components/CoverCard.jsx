@@ -1,8 +1,9 @@
 import { Trash2Icon, PenSquareIcon } from 'lucide-react';
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const CoverCard = ({ quiz }) => {
+  const navigate = useNavigate();
   return (
     <Link 
       to={`/quiz/${quiz._id}`}
@@ -15,19 +16,21 @@ const CoverCard = ({ quiz }) => {
             {new Date(quiz.createdAt).toLocaleDateString()}
           </span>
           <div className="flex items-center gap-1">
-            <button 
+            <button
               className="btn btn-ghost btn-xs"
               onClick={(e) => {
-                e.preventDefault(); 
+                e.preventDefault();
+                navigate(`/edit/${quiz._id}`);
               }}
             >
               <PenSquareIcon className="size-4"/>
             </button>
             <button 
               className="btn btn-ghost btn-xs text-error"
-              onClick={(e) => {
-                e.preventDefault(); // Prevent navigation when clicking delete
-                // Add your delete logic here
+              onClick={async (e) => {
+                e.preventDefault();
+                await fetch(`http://localhost:4000/api/v1/quizzes/${quiz._id}`, { method: "DELETE" });
+                window.location.reload();
               }}
             >
               <Trash2Icon className="size-4" />

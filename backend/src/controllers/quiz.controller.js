@@ -2,7 +2,7 @@ import { Quiz } from "../models/quiz.model.js";
 
 const createQuiz = async(req, res) => {
     try {
-        const { title, questions, createdBy } = req.body;
+        const { title, description, questions, createdBy } = req.body;
         // const userId = req.user._id;
 
         if (!createdBy) {
@@ -32,6 +32,7 @@ const createQuiz = async(req, res) => {
         // save quiz
         const quiz = await Quiz.create({
             title,
+            description,
             createdBy: createdBy,//userId,
             questions
         });
@@ -66,8 +67,8 @@ const getAllQuizes = async(req, res) => {
 
 const updateQuiz = async(req, res) => {
     try {
-        const {title, questions} = req.body
-        const updated = await Quiz.findByIdAndUpdate(req.params.id,{title, questions}, {
+        const {title, description, questions} = req.body
+        const updated = await Quiz.findByIdAndUpdate(req.params.id, {title, description, questions}, {
             new: true,
         });
         if (!updated) {
